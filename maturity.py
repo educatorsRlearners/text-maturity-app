@@ -2,29 +2,23 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-
 import pickle
 
 import tensorflow as tf
-
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-
 from tensorflow.keras.models import load_model
 
 
 
 st.write("""
-# Text Maturity
+# Text Maturity - Beta
 
-This app predicts the **MINIMUM** age required for reading a book.
+This app predicts the **MINIMUM** age required for reading a book!
+
+Data obtained from [Common Sense Media](https://www.commonsensemedia.org/book-reviews) in Python by [Evan Simpson](https://github.com/educatorsRlearners/book-maturity).
 """)
 st.write('---')
-
-# Loads the Boston House Price Dataset
-#boston = datasets.load_boston()
-#X = pd.DataFrame(boston.data, columns=boston.feature_names)
-#Y = pd.DataFrame(boston.target, columns=["MEDV"])
 
 # Sidebar
 # Header of Specify Input Parameters
@@ -67,10 +61,6 @@ path = 'lstm_title_no_year_h5_tokenizer.pickle'
 # loaad tokenizer
 with open(path, 'rb') as handle:
     tokenizer = pickle.load(handle)
-
-
-
-
 
 # Apply Model to Make Prediction
 tester = df['title'] + " " + df["genre"] + " " + df["book type"]
