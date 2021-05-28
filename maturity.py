@@ -16,7 +16,7 @@ st.write("""
 
 This app predicts the **MINIMUM** age required for reading a book!
 
-Data obtained from [Common Sense Media](https://www.commonsensemedia.org/book-reviews) in Python by [Evan Simpson](https://github.com/educatorsRlearners/book-maturity).
+Data was obtained from [Common Sense Media](https://www.commonsensemedia.org/book-reviews) using [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) by [Evan Simpson](https://github.com/educatorsRlearners/book-maturity).
 """)
 st.write('---')
 
@@ -30,16 +30,15 @@ genre_list = ['Activity','Adventure', 'Advice', 'Alphabet', 'Animals', 'Anthropo
 
 book_type_list = ['Fiction', 'Non-fiction']
 
-
-st.sidebar.header('Specify Input Parameters')
+st.sidebar.header('Book Details')
 
 def user_input_features():
-    title = st.sidebar.text_input("Book Title")
+    title = st.sidebar.text_input("Book Title", label="Enter the title")
     genre = st.sidebar.selectbox("Genre", options=genre_list)
     bookType = st.sidebar.selectbox('Book Type', options=book_type_list)
     data = {'title': title,
             'genre': genre,
-            'book type': bookType }
+            'book type': bookType}
     features = pd.DataFrame(data, index=[0])
     return features
 
@@ -58,7 +57,7 @@ model= load_model('lstm_title_no_year_h5.h5')
 
 path = 'lstm_title_no_year_h5_tokenizer.pickle'
 
-# loaad tokenizer
+# load tokenizer
 with open(path, 'rb') as handle:
     tokenizer = pickle.load(handle)
 
@@ -69,7 +68,7 @@ test_entry_padded = pad_sequences(test_entry, maxlen=29)
 prediction = (round(model.predict(test_entry_padded)[0][0], 0))
 
 
-st.header('Minimum Recommneded Age')
+st.header('Minimum Recommended Age')
 st.write(prediction)
 #st.write(tester)
 st.write('---')
