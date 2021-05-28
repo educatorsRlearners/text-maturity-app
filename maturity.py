@@ -1,10 +1,10 @@
-import streamlit as st
-import pandas as pd
-import numpy as np
-
 import pickle
 
+import numpy as np
+import pandas as pd
+import streamlit as st
 import tensorflow as tf
+
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
@@ -33,7 +33,7 @@ book_type_list = ['Fiction', 'Non-fiction']
 st.sidebar.header('Book Details')
 
 def user_input_features():
-    title = st.sidebar.text_input("Book Title", label="Enter the title")
+    title = st.sidebar.text_input("Book Title")
     genre = st.sidebar.selectbox("Genre", options=genre_list)
     bookType = st.sidebar.selectbox('Book Type', options=book_type_list)
     data = {'title': title,
@@ -47,7 +47,7 @@ df = user_input_features()
 # Main Panel
 
 # Print specified input parameters
-st.header('Specified Input parameters')
+st.header('Book Details')
 st.write(df)
 st.write('---')
 
